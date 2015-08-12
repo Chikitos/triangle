@@ -1,0 +1,130 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Треугольник
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Введите стороны треугольника");
+            double[] array = new double[3];
+            for(int i = 0; i<array.Length; i++)
+            {
+                Console.Write("Сторона "+(i+1)+": ");
+                array[i] = Convert.ToDouble(Console.ReadLine());
+            }
+
+            Triangle ourTriangle1 = new Triangle(array);
+            if (ourTriangle1.getSquare() != 0)
+                Console.WriteLine("Площадь прямоугольного треугольника = " + ourTriangle1.getSquare());
+
+            /*Triangle ourTriangle2 = new Triangle(array[0], array[1], array[2]);
+            if (ourTriangle2.getSquare() != 0)
+                Console.WriteLine("Площадь прямоугольного треугольника = " + ourTriangle2.getSquare());
+            */
+
+            Console.ReadLine();
+        }
+    }
+    class Triangle
+    {
+        double a;
+        double b;
+        double c;
+        double square;
+
+        public Triangle(double[] mass)
+        {
+            square = 0;
+            bool flag = false;
+            /*Проверка на то, что введен треугольник*/
+            if (mass[0] + mass[1] <= mass[2] || mass[0] + mass[2] <= mass[1] || mass[1] + mass[2] <= mass[0])
+                Console.WriteLine("Такого треугольника не может существовать");
+            else
+            {
+                /*Проверка на то, что введен прямоугольный треугольник и распределение значений катетов и гипотенузы*/
+                if (Math.Pow(mass[0], 2) + Math.Pow(mass[1], 2) - Math.Pow(mass[2], 2) == 0)
+                {
+                    a = mass[0];
+                    b = mass[1];
+                    c = mass[2];
+                    flag = true;
+                }
+                else if (Math.Pow(mass[0], 2) + Math.Pow(mass[2], 2) - Math.Pow(mass[1], 2) == 0)
+                {
+                    a = mass[0];
+                    b = mass[2];
+                    c = mass[1];
+                    flag = true; 
+                }
+                else if (Math.Pow(mass[1], 2) + Math.Pow(mass[2], 2) - Math.Pow(mass[0], 2) == 0)
+                {
+                    a = mass[1];
+                    b = mass[2];
+                    c = mass[0];
+                    flag = true; 
+                }
+                else
+                    Console.WriteLine("Введен не прямоугольный треугольник");
+
+                if (flag) // Если треугольник прямоугольный
+                {
+                    squareTriangle();
+                }
+            }
+        }
+
+        public Triangle(double x, double y, double z)
+        {
+            square = 0;
+            bool flag = false;
+            /*Проверка на то, что введен треугольник*/
+            if (x + y <= z || x + z <= y || y + z <= x)
+                Console.WriteLine("Такого треугольника не может существовать");
+            else
+            {
+                /*Проверка на то, что введен прямоугольный треугольник и распределение значений катетов и гипотенузы*/
+                if (Math.Pow(x, 2) + Math.Pow(y, 2) - Math.Pow(z, 2) == 0)
+                {
+                    a = x;
+                    b = y;
+                    c = z;
+                    flag = true;
+                }
+                else if (Math.Pow(x, 2) + Math.Pow(z, 2) - Math.Pow(y, 2) == 0)
+                {
+                    a = x;
+                    b = z;
+                    c = y;
+                    flag = true;
+                }
+                else if (Math.Pow(y, 2) + Math.Pow(z, 2) - Math.Pow(x, 2) == 0)
+                {
+                    a = y;
+                    b = z;
+                    c = x;
+                    flag = true;
+                }
+                else
+                    Console.WriteLine("Введен не прямоугольный треугольник");
+
+                if (flag) // Если треугольник прямоугольный
+                {
+                    squareTriangle();
+                }
+            }
+        }
+        public double getSquare() // Возвращение значения площади
+        {
+            return square;
+        }
+        void squareTriangle() // Расчет площади
+        {
+            square = (a+b)/2;
+        }
+    }
+}
